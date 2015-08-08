@@ -1,6 +1,5 @@
 package com.rainbowkiwifox.deathlogger;
 
-import java.util.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -12,8 +11,6 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin implements Listener {
-    public static final Logger _log = Logger.getLogger("Minecraft");
-    
     ConsoleCommandSender console = Bukkit.getConsoleSender();
     
     @Override
@@ -25,24 +22,25 @@ public class Main extends JavaPlugin implements Listener {
     public void onDisable() {
         console.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6[DeathLogger] &aПлагин выключен."));
     }
-    
     @EventHandler
-    public void handleDeath(PlayerDeathEvent e) {
-        Player v = e.getEntity();
-        Player a = v.getKiller();
+    public void handlerDeaths(PlayerDeathEvent e) {
+        Player victim = e.getEntity();
+        Player agressor = victim.getKiller();
+        Location victimLocation = victim.getLocation();
         
-        Location vl = v.getLocation();
-        int vlX = vl.getBlockX();
-        int vlY = vl.getBlockY();
-        int vlZ = vl.getBlockZ();
+        int vlX = victimLocation.getBlockX();
+        int vlY = victimLocation.getBlockY(); 
+        int vlZ = victimLocation.getBlockZ();
+        String vlW = victimLocation.getWorld().getName();
         
-        String vle = " (" + vl.getWorld().getName()+ " " + vlX +"," + vlY + "," + vlZ + ")";
-        String deathMessage = v.getDisplayName() + " был убит " + a.getDisplayName() + vle;
+        String vLastLocation = "(" + vlW + " " + vlX + "," + vlY + "," + vlZ + ")";
         
-        console.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6[DeathLogger] &c" + deathMessage));
-        
-        if(v.hasPermission("deathlogger.notice")) {
-            v.sendMessage("&6[DeathLogger] &fВы были убиты игроком " + a.getDisplayName() + " " + vle);
-       }
+        Notifer n = new Notifer();
+        try {
+        n.notify(victim, agressor.getDisplayName(), vLastLocation);
+        } catch (Exception ex) {
+        String none = "&7не руками человека";
+        n.notify(victim, none, vLastLocation);
+        }
     }
 }
