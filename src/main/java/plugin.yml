@@ -1,4 +1,4 @@
 name: DeathLogger
 main: com.rainbowkiwifox.deathlogger.Main
 description: Логгирование смертей игроков.
-version: 1.0
+version: 1.3
