@@ -1,12 +1,10 @@
 package com.rainbowkiwifox.deathlogger;
 
-import org.bukkit.Bukkit;
+import static org.bukkit.Bukkit.getLogger;
 import org.bukkit.ChatColor;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 public class Notifer {
-    ConsoleCommandSender console = Bukkit.getConsoleSender();
     private Player v;
     private String dm;
     private String l;
@@ -20,7 +18,7 @@ public class Notifer {
         this.kv = kv;
         this.kf = kf;
         
-        console.sendMessage("[DeathLogger] " + dm + " " + l + ", ваниш: " + kv + ", полёт: " + kf);
+        getLogger().info("[DeathLogger] " + dm + " " + l + ", vanish: " + kv + ", fly: " + kf);
         
         if(v.hasPermission("deathlogger.notice")) {
             v.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6[DeathLogger] &c" + dm + " &b" + l));

@@ -3,7 +3,6 @@ package com.rainbowkiwifox.deathlogger;
 import com.earth2me.essentials.Essentials;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.EntityType;
 import static org.bukkit.entity.EntityType.PLAYER;
 import org.bukkit.entity.Player;
@@ -15,7 +14,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class EventListener implements Listener {
-    ConsoleCommandSender console = Bukkit.getConsoleSender();
     Notifer n = new Notifer();
     Essentials ess = (Essentials) Bukkit.getPluginManager().getPlugin("Essentials");
     
@@ -65,7 +63,10 @@ public class EventListener implements Listener {
             kf = ess.getUser(killer).getBase().getAllowFlight();//состояние полёта убийцы из Essentials
         }
         
-        n.notify(victim, deathMessage, vLastLocation, kv, kf); //оповещаем, собстна
+        //оповещаем, собстна
+        if (deathMessage != null) {
+            n.notify(victim, deathMessage, vLastLocation, kv, kf);
+        } 
         
         e.setDeathMessage(null); //убираем сообщение о смерти
     }
