@@ -1,0 +1,4 @@
+debug: true
+others:
+    hideJoinMessage: true
+    hideQuitMessage: true

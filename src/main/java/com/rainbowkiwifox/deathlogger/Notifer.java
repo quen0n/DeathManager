@@ -18,10 +18,10 @@ public class Notifer {
         this.kv = kv;
         this.kf = kf;
         
-        getLogger().info("[DeathLogger] " + dm + " " + l + ", vanish: " + kv + ", fly: " + kf);
+        getLogger().info("[DeathLogger] " + dm + " " + l + ", vanish: " + kv + ", fly: " + kf + ".");
         
         if(v.hasPermission("deathlogger.notice")) {
-            v.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6[DeathLogger] &c" + dm + " &b" + l));
+            v.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6[DeathLogger] &c" + dm + " &b" + l + "."));
         }   
     }
 }

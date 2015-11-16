@@ -2,6 +2,7 @@ package com.rainbowkiwifox.deathlogger;
 
 import com.earth2me.essentials.Essentials;
 import org.bukkit.Bukkit;
+import static org.bukkit.Bukkit.getLogger;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import static org.bukkit.entity.EntityType.PLAYER;
@@ -30,7 +31,7 @@ public class EventListener implements Listener {
     public void handleQuit(PlayerQuitEvent e) {
         e.setQuitMessage(null);
     }
-
+    
     //определяем местоположение убитого и отправляем сообщение о смерти в лог
     @EventHandler
     public void handlerDeaths(PlayerDeathEvent e) {
@@ -66,7 +67,10 @@ public class EventListener implements Listener {
         //оповещаем, собстна
         if (deathMessage != null) {
             n.notify(victim, deathMessage, vLastLocation, kv, kf);
-        } 
+        }
+        else {
+            getLogger().info("[DeathLogger] Сообщение о смерти игрока " + victim.getName() + " было убрано, т.к. оно было пустым.");
+        }
         
         e.setDeathMessage(null); //убираем сообщение о смерти
     }
